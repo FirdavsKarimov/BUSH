@@ -6,7 +6,6 @@ export default function HomePage() {
   const [balance, setBalance] = useState<Balance | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadData();
@@ -14,19 +13,17 @@ export default function HomePage() {
 
   const loadData = async () => {
     setLoading(true);
-    setError(null);
-    
+
     try {
       const [balanceData, transactionsData] = await Promise.all([
         apiService.getBalance(),
         apiService.getTransactions(),
       ]);
-      
+
       setBalance(balanceData);
       setTransactions(transactionsData);
     } catch (err: any) {
       console.error('Error loading data:', err);
-      setError(err.message || 'Failed to load data');
       // Set mock data for demo if API fails
       setBalance({
         user_id_string: 'demo_user',
@@ -157,5 +154,3 @@ export default function HomePage() {
     </>
   );
 }
-
-

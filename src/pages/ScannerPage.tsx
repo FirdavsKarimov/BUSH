@@ -44,7 +44,7 @@ export default function ScannerPage() {
           (decodedText) => {
             handleScan(decodedText);
           },
-          (errorMessage) => {
+          (_errorMessage) => {
             // Ignore scanning errors (continuous scanning)
           }
         );
@@ -220,5 +220,3 @@ export default function ScannerPage() {
     </>
   );
 }
-
-
