@@ -190,7 +190,7 @@ class ApiService {
     return catalogItems.map((item) => ({
       id: item.item_sku,
       name: item.name,
-      image: `https://via.placeholder.com/300x300/f5f5f5/333333?text=${encodeURIComponent(item.name)}`,
+      image: this.generatePlaceholderImage(item.name),
       original_price: 100000,
       discounted_price: 80000,
       discount_percentage: 20,
@@ -198,6 +198,21 @@ class ApiService {
       valid_from: '25.10.2025',
       valid_to: '12.11.2025',
     }));
+  }
+
+  /**
+   * Generate a placeholder image using SVG data URL
+   */
+  private generatePlaceholderImage(text: string): string {
+    const svg = `
+      <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="300" fill="#f5f5f5"/>
+        <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="16" fill="#666" text-anchor="middle" dominant-baseline="middle">
+          ${text.substring(0, 30)}
+        </text>
+      </svg>
+    `;
+    return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
   }
 
   /**

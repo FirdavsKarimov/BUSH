@@ -2,6 +2,19 @@ import { useState, useEffect } from 'react';
 import { apiService, Product } from '../utils/api';
 import StatusBar from '../components/StatusBar';
 
+// Helper function to generate SVG placeholder images
+const generatePlaceholderImage = (text: string): string => {
+  const svg = `
+    <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="300" fill="#f5f5f5"/>
+      <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="16" fill="#666" text-anchor="middle" dominant-baseline="middle">
+        ${text.substring(0, 30)}
+      </text>
+    </svg>
+  `;
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
+};
+
 export default function CataloguePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +39,7 @@ export default function CataloguePage() {
         {
           id: '1',
           name: 'Г.Грудинка, вес**',
-          image: 'https://via.placeholder.com/300x300/f5f5f5/333333?text=Beef+Brisket',
+          image: generatePlaceholderImage('Beef Brisket'),
           original_price: 99990,
           discounted_price: 89990,
           discount_percentage: 10,
@@ -37,7 +50,7 @@ export default function CataloguePage() {
         {
           id: '2',
           name: 'Г.Корейка, вес**',
-          image: 'https://via.placeholder.com/300x300/f5f5f5/333333?text=Beef+Loin',
+          image: generatePlaceholderImage('Beef Loin'),
           original_price: 125990,
           discounted_price: 97990,
           discount_percentage: 22,
@@ -48,7 +61,7 @@ export default function CataloguePage() {
         {
           id: '3',
           name: 'Г.Ребра, вес**',
-          image: 'https://via.placeholder.com/300x300/f5f5f5/333333?text=Beef+Ribs',
+          image: generatePlaceholderImage('Beef Ribs'),
           original_price: 119990,
           discounted_price: 92990,
           discount_percentage: 22,
@@ -59,7 +72,7 @@ export default function CataloguePage() {
         {
           id: '4',
           name: 'Г.Вырезка, вес**',
-          image: 'https://via.placeholder.com/300x300/f5f5f5/333333?text=Beef+Tenderloin',
+          image: generatePlaceholderImage('Beef Tenderloin'),
           original_price: 127990,
           discounted_price: 99990,
           discount_percentage: 21,
