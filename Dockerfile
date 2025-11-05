@@ -4,6 +4,16 @@ FROM node:18-alpine AS builder
 # Set working directory
 WORKDIR /app
 
+# Accept build arguments
+ARG VITE_API_BASE_URL=https://api.bush.uz
+ARG VITE_APP_NAME=Korzinka Eco App
+ARG VITE_APP_VERSION=1.0.0
+
+# Set environment variables for build
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_APP_NAME=$VITE_APP_NAME
+ENV VITE_APP_VERSION=$VITE_APP_VERSION
+
 # Copy package files
 COPY package*.json ./
 

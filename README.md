@@ -26,46 +26,66 @@ This application is designed to promote eco-friendly and sustainable shopping ha
 
 ## Getting Started
 
+> **⚡ Quick Start:** See [QUICKSTART.md](./QUICKSTART.md) for the fastest way to get running!
+
 ### Prerequisites
 
 - Node.js 16+ and npm
+- Docker (optional, for containerized deployment)
 
-### Installation
+### Local Development
 
-1. Install dependencies:
 ```bash
+# 1. Install dependencies
 npm install
-```
 
-2. Start the development server:
-```bash
+# 2. Start the development server
 npm run dev
+
+# 3. Open browser at: http://localhost:3221
 ```
 
-3. Open your browser and navigate to:
-```
-http://localhost:3000
+### Docker Deployment
+
+```bash
+# Using Docker Compose (recommended)
+npm run docker:up
+
+# Access at: http://localhost:8080
 ```
 
-### Build for Production
+For detailed Docker setup, see [DOCKER.md](./DOCKER.md)
+
+### Production Build
 
 ```bash
 npm run build
 npm run preview
 ```
 
+For complete deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
+
 ## API Integration
 
-The app connects to the API at `http://77.93.152.199:8088`
+The app connects to the backend API at **`https://api.bush.uz`**
 
-API endpoints:
-- `GET /balance` - Get user balance
-- `GET /transactions` - Get transaction history
-- `GET /products` - Get product catalogue
-- `GET /locations` - Get store locations
-- `POST /scan` - Scan barcode
+### Environment Variables
 
-All requests include a generated user ID in the `X-User-Id` header.
+Configure the API URL using environment variables:
+
+```bash
+VITE_API_BASE_URL=https://api.bush.uz
+```
+
+### API Endpoints
+
+- `GET /api/users/{user_id_string}/balance` - Get user balance
+- `GET /api/users/{user_id_string}/history` - Get transaction history
+- `GET /api/catalog` - Get recyclable items catalog
+- `GET /api/locations` - Get collection locations
+- `POST /api/returns` - Register item return/scan
+
+For detailed API documentation, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
 
 ## Project Structure
 
@@ -120,6 +140,20 @@ The app is optimized for mobile devices with:
 - Touch-friendly interface
 - Bottom navigation for easy thumb access
 - Native-like mobile experience
+
+## Documentation
+
+### Getting Started
+- **[Quick Start Guide](./QUICKSTART.md)** - Get up and running in minutes ⚡
+- **[Deployment Guide](./DEPLOYMENT.md)** - Complete production deployment guide 🚀
+
+### Technical Reference
+- **[API Documentation](./API_DOCUMENTATION.md)** - Complete API endpoint reference
+- **[Docker Setup](./DOCKER.md)** - Docker deployment guide
+- **[Database Configuration](./DATABASE.md)** - PostgreSQL and pgAdmin setup 🔒
+- **[Credentials Reference](./CREDENTIALS.md)** - Quick access to all credentials and URLs 🔑
+
+⚠️ **Note:** `DATABASE.md` and `CREDENTIALS.md` contain sensitive information and are gitignored for security.
 
 ## License
 

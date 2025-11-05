@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { getUserId } from './auth';
 
-const API_BASE_URL = 'http://77.93.152.199:8088';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.bush.uz';
 
 // Types based on the actual API documentation from http://77.93.152.199:8088/docs
 

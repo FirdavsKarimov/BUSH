@@ -1,7 +1,7 @@
 // Simple Node.js script to test the POST /api/returns endpoint
 // Run with: node test-api.js
 
-const API_BASE_URL = 'http://77.93.152.199:8088';
+const API_BASE_URL = process.env.API_URL || 'https://api.bush.uz';
 
 async function testPostRequest() {
   console.log('🧪 Testing POST /api/returns endpoint...\n');

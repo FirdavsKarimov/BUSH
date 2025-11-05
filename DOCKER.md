@@ -76,17 +76,31 @@ The `nginx.conf` file includes:
 
 ### Environment Variables
 
-To use environment variables in your Docker container:
+The application uses the following environment variables:
 
-1. Create a `.env` file in the root directory
-2. Add your environment variables
-3. Update `docker-compose.yml` to include the env file:
+- `VITE_API_BASE_URL` - Backend API URL (default: `https://api.bush.uz`)
+- `VITE_APP_NAME` - Application name
+- `VITE_APP_VERSION` - Application version
+
+These are configured in `docker-compose.yml` and `Dockerfile` by default.
+
+To override environment variables:
+
+1. Edit `docker-compose.yml` environment section:
+   ```yaml
+   environment:
+     - VITE_API_BASE_URL=https://your-api-url.com
+   ```
+
+2. Or create a `.env` file and update `docker-compose.yml`:
    ```yaml
    services:
      frontend:
        env_file:
          - .env
    ```
+
+**Note:** The API URL is set at build time for Vite applications, so you need to rebuild the image after changing it.
 
 ## Customization
 
