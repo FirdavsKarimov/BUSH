@@ -3,7 +3,7 @@ import { getUserId } from './auth';
 
 /**
  * Test POST request to /api/returns endpoint
- * This will attempt to register a return with a test item
+ * This will attempt to register a return with a real item from the catalog
  */
 export async function testPostRequest() {
   console.log('🧪 Testing POST /api/returns endpoint...');
@@ -12,9 +12,19 @@ export async function testPostRequest() {
   console.log('👤 User ID:', userId);
   
   try {
-    // Test with a sample item SKU
-    const testItemSku = 'TEST_ITEM_001';
+    // First, fetch the catalog to get a real item SKU
+    console.log('📋 Fetching catalog to get a real item...');
+    const catalog = await apiService.getCatalog();
     
+    if (!catalog || catalog.length === 0) {
+      throw new Error('No items found in catalog. Please add items to the database first.');
+    }
+    
+    // Use the first item from the catalog for testing
+    const testItem = catalog[0];
+    const testItemSku = testItem.item_sku;
+    
+    console.log('📦 Using item from catalog:', testItem.name, '(SKU:', testItemSku, ')');
     console.log('📦 Sending POST request with item_sku:', testItemSku);
     
     const result = await apiService.registerReturn(testItemSku);
@@ -23,7 +33,14 @@ export async function testPostRequest() {
     
     return {
       success: true,
-      data: result,
+      data: {
+        ...result,
+        item_tested: {
+          sku: testItemSku,
+          name: testItem.name,
+          points: testItem.points_awarded,
+        }
+      },
       message: 'POST request successful!',
     };
     
