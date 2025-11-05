@@ -28,6 +28,20 @@ export default function ScannerPage() {
 
   const startScanner = async () => {
     try {
+      // Check if the site is served over HTTPS (required for camera access)
+      if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+        setError('Camera access requires HTTPS. Please use the "Manual Input" tab instead.');
+        setMode('manual');
+        return;
+      }
+
+      // Check if getUserMedia is supported
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setError('Camera access is not supported in your browser. Please use the "Manual Input" tab instead.');
+        setMode('manual');
+        return;
+      }
+
       if (!html5QrCodeRef.current) {
         html5QrCodeRef.current = new Html5Qrcode('qr-reader');
       }
@@ -49,10 +63,36 @@ export default function ScannerPage() {
           }
         );
         setScanning(true);
+        setError(null);
       }
     } catch (err: any) {
       console.error('Error starting scanner:', err);
-      setError('Failed to start camera. Please check permissions.');
+      
+      // Provide specific error messages based on the error type
+      let errorMessage = 'Failed to start camera. ';
+      
+      if (err.name === 'NotAllowedError' || err.message?.includes('NotAllowedError')) {
+        errorMessage += 'Camera access was denied. Please:\n\n' +
+          '1. Click the camera icon in your browser\'s address bar\n' +
+          '2. Allow camera access for this site\n' +
+          '3. Refresh the page\n\n' +
+          'Or use the "Manual Input" tab to enter barcode manually.';
+      } else if (err.name === 'NotFoundError' || err.message?.includes('NotFoundError')) {
+        errorMessage += 'No camera found on this device. Please use the "Manual Input" tab.';
+      } else if (err.name === 'NotReadableError' || err.message?.includes('NotReadableError')) {
+        errorMessage += 'Camera is already in use by another application. Please close other apps using the camera.';
+      } else if (err.name === 'SecurityError' || err.message?.includes('SecurityError')) {
+        errorMessage += 'Camera access blocked due to security settings. Please use the "Manual Input" tab.';
+      } else {
+        errorMessage += err.message || 'Unknown error. Please use the "Manual Input" tab.';
+      }
+      
+      setError(errorMessage);
+      
+      // Automatically switch to manual mode after showing the error
+      setTimeout(() => {
+        setMode('manual');
+      }, 3000);
     }
   };
 
@@ -204,8 +244,17 @@ export default function ScannerPage() {
 
           {error && (
             <div className="scan-result error">
-              <h3>❌ Error</h3>
-              <pre>{error}</pre>
+              <h3>❌ Camera Access Issue</h3>
+              <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{error}</pre>
+              {mode === 'manual' && (
+                <button
+                  className="submit-button"
+                  onClick={() => setMode('scan')}
+                  style={{ marginTop: '12px' }}
+                >
+                  🔄 Try Camera Again
+                </button>
+              )}
             </div>
           )}
 
