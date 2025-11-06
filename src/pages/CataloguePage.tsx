@@ -34,51 +34,106 @@ export default function CataloguePage() {
     } catch (err: any) {
       console.error('Error loading products:', err);
       setError(err.message || 'Failed to load products');
-      // Set mock data for demo
+      // Set mock data for demo with real eco-friendly products
       setProducts([
         {
-          id: '1',
-          name: 'Г.Грудинка, вес**',
-          image: generatePlaceholderImage('Beef Brisket'),
-          original_price: 99990,
-          discounted_price: 89990,
-          discount_percentage: 10,
-          points: 3,
-          valid_from: '25.10.2025',
-          valid_to: '12.11.2025',
+          id: '123123',
+          name: 'Coca-Cola 1.5L',
+          image: 'https://www.spot.uz/media/img/2025/05/QzN7nw17464294466712_l.jpg',
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 800,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
         },
         {
-          id: '2',
-          name: 'Г.Корейка, вес**',
-          image: generatePlaceholderImage('Beef Loin'),
-          original_price: 125990,
-          discounted_price: 97990,
-          discount_percentage: 22,
-          points: 2,
-          valid_from: '25.10.2025',
-          valid_to: '12.11.2025',
+          id: '123124',
+          name: 'Fanta 1.5L',
+          image: generatePlaceholderImage('Fanta 1.5L'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 800,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
         },
         {
-          id: '3',
-          name: 'Г.Ребра, вес**',
-          image: generatePlaceholderImage('Beef Ribs'),
-          original_price: 119990,
-          discounted_price: 92990,
-          discount_percentage: 22,
-          points: 2,
-          valid_from: '25.10.2025',
-          valid_to: '12.11.2025',
+          id: '123125',
+          name: 'Sprite 1.5L',
+          image: generatePlaceholderImage('Sprite 1.5L'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 800,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
         },
         {
-          id: '4',
-          name: 'Г.Вырезка, вес**',
-          image: generatePlaceholderImage('Beef Tenderloin'),
-          original_price: 127990,
-          discounted_price: 99990,
-          discount_percentage: 21,
-          points: 3,
-          valid_from: '25.10.2025',
-          valid_to: '12.11.2025',
+          id: '123126',
+          name: 'Вода 365kun',
+          image: generatePlaceholderImage('365kun Water'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 1200,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
+        },
+        {
+          id: '123127',
+          name: 'Маринованные огурцы Marinella',
+          image: generatePlaceholderImage('Pickled Cucumbers'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 2000,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
+        },
+        {
+          id: '123128',
+          name: 'Маринованные помидоры 365kun',
+          image: generatePlaceholderImage('Pickled Tomatoes'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 3500,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
+        },
+        {
+          id: '123129',
+          name: 'Маринованные шампиньоны 365kun',
+          image: generatePlaceholderImage('Pickled Mushrooms'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 4000,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
+        },
+        {
+          id: '123130',
+          name: 'Пюре Бабушкино лукошко индейка',
+          image: generatePlaceholderImage('Baby Food Turkey'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 3000,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
+        },
+        {
+          id: '123131',
+          name: 'Маринованные томаты Астраханские',
+          image: generatePlaceholderImage('Astrakhan Tomatoes'),
+          original_price: 0,
+          discounted_price: 0,
+          discount_percentage: 0,
+          points: 3000,
+          valid_from: '01.11.2025',
+          valid_to: '30.11.2025',
         },
       ]);
     } finally {
@@ -103,7 +158,10 @@ export default function CataloguePage() {
       <StatusBar />
       <div className="page">
         <div className="page-header">
-          <h1 className="page-title">Beef price drop!</h1>
+          <h1 className="page-title">🌱 Eco-Friendly Products</h1>
+          <p style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
+            Redeem your BasketPoints for sustainable products
+          </p>
         </div>
 
         <div className="products-grid">
@@ -116,18 +174,25 @@ export default function CataloguePage() {
                   className="product-image"
                 />
                 <div className="product-badge">
-                  {product.valid_from}-{product.valid_to}
+                  🌿 Eco-Friendly
                 </div>
-                <div className="price-badge">
-                  <span className="original-price">{formatPrice(product.original_price)}</span>
-                  <span className="discounted-price">{formatPrice(product.discounted_price)}</span>
-                  <div className="discount-percent">-{product.discount_percentage}%</div>
+                <div className="price-badge" style={{ background: 'linear-gradient(135deg, #34A853 0%, #0F9D58 100%)' }}>
+                  <span style={{ fontSize: '24px', fontWeight: '700', color: '#fff' }}>
+                    {formatPrice(product.points)}
+                  </span>
+                  <span style={{ fontSize: '12px', color: '#fff', marginTop: '4px' }}>
+                    BasketPoints
+                  </span>
                 </div>
               </div>
               <div className="product-info">
                 <div className="product-name">{product.name}</div>
-                <div className="product-points">{product.points} Балла</div>
-                <button className="order-button">Order</button>
+                <div className="product-points" style={{ color: '#34A853', fontWeight: '600' }}>
+                  ✓ Available for redemption
+                </div>
+                <button className="order-button" style={{ background: '#34A853' }}>
+                  Redeem Now
+                </button>
               </div>
             </div>
           ))}

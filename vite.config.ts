@@ -13,7 +13,7 @@ export default defineConfig({
     }
   ],
   server: {
-    port: 3221,
+    port: 3333,
     host: 'localhost'
   }
 })

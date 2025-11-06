@@ -97,46 +97,66 @@ export default function HomePage() {
       <StatusBar />
       <div className="page">
         <div className="page-header">
-          <h1 className="page-title">My Cards</h1>
+          <h1 className="page-title">🌱 Bush Wallet</h1>
+          <p style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
+            Your eco-friendly rewards balance
+          </p>
         </div>
 
         {balance && (
-          <div className="balance-card">
+          <div className="balance-card" style={{ background: 'linear-gradient(135deg, #34A853 0%, #0F9D58 100%)' }}>
             <div className="card-header">
-              <div className="card-title">Eco Bonus Points</div>
-              <div className="card-number">User ID: {balance.user_id_string.substring(0, 12)}...</div>
+              <div className="card-title" style={{ color: 'white' }}>🌿 BasketPoints Balance</div>
+              <div className="card-number" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                User ID: {balance.user_id_string.substring(0, 12)}...
+              </div>
             </div>
             
-            <div className="balance-amount">{formatAmount(balance.balance)} points</div>
+            <div className="balance-amount" style={{ color: 'white', fontSize: '48px' }}>
+              {formatAmount(balance.balance)}
+            </div>
             
-            <div className="balance-details">
+            <div className="balance-details" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.3)' }}>
               <div className="balance-row">
-                <div className="balance-label">Total Eco Points Earned</div>
-                <div className="balance-value">{formatAmount(balance.balance)}</div>
+                <div className="balance-label" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                  Available for Redemption
+                </div>
+                <div className="balance-value" style={{ color: 'white', fontWeight: '700' }}>
+                  {formatAmount(balance.balance)} pts
+                </div>
               </div>
               <div className="balance-row">
-                <div className="balance-label">Keep recycling to earn more!</div>
+                <div className="balance-label" style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '13px' }}>
+                  ✨ Redeem for eco-friendly products only
+                </div>
               </div>
             </div>
           </div>
         )}
 
         <div className="transactions-section">
-          <h2 className="section-title">My Purchases</h2>
+          <h2 className="section-title">🌍 Eco-Friendly Purchases</h2>
+          <p style={{ fontSize: '13px', color: '#666', marginTop: '-8px', marginBottom: '16px' }}>
+            Earn BasketPoints for every purchase
+          </p>
           
           {Object.entries(groupedTransactions).map(([month, monthTransactions]) => (
             <div key={month}>
               <div className="month-separator">{month} 2025</div>
               {monthTransactions.map((transaction) => (
                 <div key={transaction.id} className="transaction-item">
-                  <div className="transaction-icon">🛒</div>
+                  <div className="transaction-icon" style={{ background: 'linear-gradient(135deg, #34A853 0%, #0F9D58 100%)' }}>
+                    🌱
+                  </div>
                   <div className="transaction-info">
                     <div className="transaction-store">{transaction.store}</div>
                     <div className="transaction-date">{transaction.date}</div>
                   </div>
                   <div className="transaction-amounts">
-                    <div className="transaction-amount">- {formatAmount(transaction.amount)} soum</div>
-                    <div className="transaction-bonus">+ {transaction.bonuses} bonuses</div>
+                    <div className="transaction-amount">{formatAmount(transaction.amount)} soum</div>
+                    <div className="transaction-bonus" style={{ color: '#34A853', fontWeight: '600' }}>
+                      + {transaction.bonuses} BasketPoints
+                    </div>
                   </div>
                 </div>
               ))}

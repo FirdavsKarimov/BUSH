@@ -13,16 +13,16 @@ export default function BottomNav() {
         to="/" 
         className={`nav-item ${isActive('/') ? 'active' : ''}`}
       >
-        <div className="nav-icon">🏠</div>
-        <div className="nav-label">Home</div>
+        <div className="nav-icon">🌱</div>
+        <div className="nav-label">Wallet</div>
       </Link>
       
       <Link 
         to="/catalogue" 
         className={`nav-item ${isActive('/catalogue') ? 'active' : ''}`}
       >
-        <div className="nav-icon">📋</div>
-        <div className="nav-label">Catalogue</div>
+        <div className="nav-icon">🛍️</div>
+        <div className="nav-label">Redeem</div>
       </Link>
       
       <Link 
@@ -30,7 +30,7 @@ export default function BottomNav() {
         className={`nav-item ${isActive('/scanner') ? 'active' : ''}`}
       >
         <div className="nav-icon scan-icon">📷</div>
-        <div className="nav-label">Scan</div>
+        <div className="nav-label">Earn</div>
       </Link>
       
       <Link 
@@ -38,7 +38,7 @@ export default function BottomNav() {
         className={`nav-item ${isActive('/locations') ? 'active' : ''}`}
       >
         <div className="nav-icon">📍</div>
-        <div className="nav-label">Locations</div>
+        <div className="nav-label">Stores</div>
       </Link>
     </nav>
   );

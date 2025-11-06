@@ -130,17 +130,31 @@ export default function ScannerPage() {
     } catch (err: any) {
       console.error('Error scanning barcode:', err);
       setError(err.message || 'Failed to scan barcode');
-      // Mock response for demo
+      // Mock response for demo - show BasketPoints earned
+      const mockProducts: { [key: string]: any } = {
+        '123123': { name: 'Coca-Cola 1.5L', points: 800, image: 'https://www.spot.uz/media/img/2025/05/QzN7nw17464294466712_l.jpg' },
+        '123124': { name: 'Fanta 1.5L', points: 800 },
+        '123125': { name: 'Sprite 1.5L', points: 800 },
+        '123126': { name: 'Вода 365kun', points: 1200 },
+        '123127': { name: 'Маринованные огурцы Marinella', points: 2000 },
+        '123128': { name: 'Маринованные помидоры 365kun', points: 3500 },
+        '123129': { name: 'Маринованные шампиньоны 365kun', points: 4000 },
+        '123130': { name: 'Пюре Бабушкино лукошко индейка', points: 3000 },
+        '123131': { name: 'Маринованные томаты Астраханские', points: 3000 },
+      };
+      
+      const product = mockProducts[code] || { name: 'Unknown Product', points: 500 };
+      
       setResult({
         success: true,
         barcode: code,
         product: {
-          name: 'Eco-Friendly Product',
-          price: 15000,
-          eco_rating: 4.5,
-          sustainability_score: 85,
+          name: product.name,
+          image: product.image,
+          points_earned: product.points,
+          eco_friendly: true,
         },
-        message: 'Product scanned successfully! (Demo data)',
+        message: '✅ Purchase confirmed! You earned BasketPoints for choosing an eco-friendly product.',
       });
     } finally {
       setLoading(false);
@@ -172,7 +186,10 @@ export default function ScannerPage() {
       <StatusBar />
       <div className="page">
         <div className="page-header">
-          <h1 className="page-title">Scan Product</h1>
+          <h1 className="page-title">🌱 Earn BasketPoints</h1>
+          <p style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
+            Scan eco-friendly products to earn points
+          </p>
         </div>
 
         <div className="scanner-container">
@@ -259,9 +276,44 @@ export default function ScannerPage() {
           )}
 
           {result && (
-            <div className="scan-result">
-              <h3>✅ Scan Result</h3>
-              <pre>{JSON.stringify(result, null, 2)}</pre>
+            <div className="scan-result" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', border: '2px solid #34A853' }}>
+              <h3 style={{ color: '#34A853', marginBottom: '16px' }}>🎉 Success!</h3>
+              {result.product?.points_earned && (
+                <div style={{ 
+                  background: '#34A853', 
+                  color: 'white', 
+                  padding: '20px', 
+                  borderRadius: '12px',
+                  marginBottom: '16px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '14px', opacity: 0.9 }}>You earned</div>
+                  <div style={{ fontSize: '48px', fontWeight: '700', margin: '8px 0' }}>
+                    {result.product.points_earned.toLocaleString()}
+                  </div>
+                  <div style={{ fontSize: '16px', fontWeight: '600' }}>BasketPoints</div>
+                </div>
+              )}
+              <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', color: '#333' }}>
+                {result.product?.name || 'Product'}
+              </div>
+              {result.product?.eco_friendly && (
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '8px',
+                  background: '#fff',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  marginTop: '12px'
+                }}>
+                  <span style={{ fontSize: '20px' }}>🌿</span>
+                  <span style={{ color: '#34A853', fontWeight: '600' }}>Eco-Friendly Product</span>
+                </div>
+              )}
+              <div style={{ marginTop: '16px', fontSize: '14px', color: '#666' }}>
+                {result.message}
+              </div>
             </div>
           )}
         </div>
